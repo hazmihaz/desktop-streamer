@@ -1,0 +1,17 @@
+{
+  "name": "circledoo-desktop-streamer",
+  "version": "1.0.0",
+  "main": "main.js",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^2.0.0"
+  },
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "dotenv": "^5.0.1",
+    "ffmpeg.js": "^3.1.9001",
+    "fluent-ffmpeg": "git://github.com/fluent-ffmpeg/node-fluent-ffmpeg#device-check"
+  }
+}

@@ -1,0 +1,136 @@
+<html>
+<head><title>Circledoo Desktop Streamer</title></head>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  #links {
+    color: red;
+  }
+</style>
+<body>
+  <h1>Circledoo Streamer</h1>
+  <!-- <input type="file" onchange='openFile(event)'>
+  <div id="links"></div> -->
+
+  <input id="streamkey" type="text">
+  <button onclick="startStream()">START</button>
+  <button onclick="stopStream()">STOP</button>
+
+  <script src="modernizr-custom.js"></script>
+
+
+
+  <script>
+    const {ipcRenderer} = require('electron')
+
+    ipcRenderer.on('message', (evt, arg) => {
+      console.log(arg)
+    })
+
+    function startStream () {
+      const key = document.getElementById('streamkey').value
+
+      if (key) {
+        console.log('key', key)
+
+        ipcRenderer.send('start', { key: key })
+      }
+    }
+    
+    function stopStream () {
+      ipcRenderer.send('stop')
+    }
+
+    // ipcRenderer.on('pong', (evt, arg) => {
+    //   console.log(arg)
+    // })
+    
+    //ipcRenderer.send('ping', 'pingpigninging')
+
+
+    // var worker = new Worker("worker3.js");
+    // var outputElement = {}
+    // var videoData
+
+    // function openFile(e){
+    //   var input = e.target
+    //   var reader = new FileReader();
+      
+    //   reader.onload = function(e) {
+    //     //var arrayBuffer = reader.result
+    //     videoData = new Uint8Array(reader.result)
+
+    //     worker.postMessage({
+    //       type: 'command',
+    //       arguments: ['-i', 'test',
+    //                   '-f', 'flv',
+    //                   'output0.flv'
+    //                   //'rtmp://a.rtmp.youtube.com/live2/wyau-k694-sfcr-0pdk'
+    //                  ],
+    //       files: [
+    //         {
+    //           data: videoData,
+    //           name: 'test'
+    //         }
+    //       ]
+    //     })
+    //   }
+
+    //   reader.readAsArrayBuffer(input.files[0])
+    // }
+
+
+    //function runFFmpeg (arrayBuffer) {
+    // worker.onmessage = function (event) {
+    //     var message = event.data;
+    //     console.log(message.data)
+
+    //     if (message.type == "ready") {
+    //       outputElement.textContent = "Loaded";
+    //       //var videoData = new Uint8Array(arrayBuffer)
+    //       worker.postMessage({
+    //         type: 'command',
+    //         arguments: ['-help'
+    //                     //'-i', './test.mp4',
+    //                     // '-vn', '-ar 44100',
+    //                     // '-ac', '2',
+    //                     // '-ab', '128k',
+    //                     // '-f', 'mp3',
+    //                     //"-c:v", "libx264", 
+    //                     //"-an",
+    //                     //'output1.mp4'
+    //                   ],
+    //       })
+    //     } else if (message.type == "stdout") {
+    //       outputElement.textContent += message.data + "\n";
+    //     } else if (message.type == "start") {
+    //       outputElement.textContent = "Worker has received command\n";
+    //     } else if (message.type == 'done') {
+    //       result = message.data
+    //       console.log('done', result)
+    //       result.forEach(function(file) {
+    //         console.log('get link', file)
+
+    //         var element = document.getElementById("links")
+    //         var link = getDownloadLink(file.data, file.name);
+    //         element.appendChild(link)
+
+    //       })
+    //     }
+    //   };
+      
+    // function getDownloadLink(fileData, fileName) {
+    //   console.log('get link', fileName)
+    //   var a = document.createElement('a');
+    //   a.download = fileName;
+    //   var blob = new Blob([fileData]);
+    //   var src = window.URL.createObjectURL(blob);
+    //   a.href = src;
+    //   a.textContent = 'Click here to download ' + fileName + "!";
+    //   return a;
+    // }
+
+  </script>
+</body>
+</html>
